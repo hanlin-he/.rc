@@ -85,6 +85,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias brewup="brew update;brew upgrade;brew cleanup;brew doctor"
+alias vims="vim --servername VIM"
 
 # OPAM configuration
 . /Users/hanlinhe/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
