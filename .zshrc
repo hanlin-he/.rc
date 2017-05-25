@@ -90,3 +90,4 @@ alias vims="vim --servername VIM"
 # OPAM configuration
 . /Users/hanlinhe/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 export PATH="/usr/local/opt/curl/bin:$PATH"
+export PATH="/usr/local/opt/sqlite/bin:$PATH"
