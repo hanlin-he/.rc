@@ -7,7 +7,7 @@ export ZSH=/Users/hanlin/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
+ZSH_THEME="ys"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -86,8 +86,10 @@ source $ZSH/oh-my-zsh.sh
 
 alias brewup="brew update;brew upgrade;brew cleanup;brew doctor"
 alias vims="vim --servername VIM"
+alias convertflac="for i in *.flac; do ffmpeg -i "$i" -acodec alac "`basename "$i" .flac`.m4a"; done;"
 
-# OPAM configuration
-. /Users/hanlinhe/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 export PATH="/usr/local/opt/curl/bin:$PATH"
 export PATH="/usr/local/opt/sqlite/bin:$PATH"
+
+# OPAM configuration
+. /Users/hanlin/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
