@@ -79,6 +79,11 @@ set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic white
 
 " Formatting
 
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+
 " For python use, copy from Hitchiker's Guideto Python.
 set textwidth=79    " lines longer than 79 columns will be broken
 set shiftwidth=4    " operation >> indents 4 columns; << unindents 4 columns
@@ -260,3 +265,6 @@ let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
         nnoremap <silent> <leader>tt :TagbarToggle<CR>
     endif
 "}
+
+let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+execute "set rtp+=" . g:opamshare . "/merlin/vim"
