@@ -85,6 +85,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias brewup="brew update;brew upgrade;brew cleanup;brew doctor"
+alias opamup="opam update;opam upgrade"
 alias vims="vim --servername VIM"
 alias convertflac="for i in *.flac; do ffmpeg -i "$i" -acodec alac "`basename "$i" .flac`.m4a"; done;"
 
@@ -93,3 +94,7 @@ export PATH="/usr/local/opt/sqlite/bin:$PATH"
 
 # OPAM configuration
 . /Users/hanlin/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+# Jenv Configuration
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
