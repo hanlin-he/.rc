@@ -1,26 +1,27 @@
 " Basic and Vundle
-set nocompatible                    " Must be first line
-filetype off
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+    set nocompatible                    " Must be first line
+    filetype off
+    " set the runtime path to include Vundle and initialize
+    set rtp+=~/.vim/bundle/Vundle.vim
+    call vundle#begin()
+    " alternatively, pass a path where Vundle should install plugins
+    "call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+    " let Vundle manage Vundle, required
+    Plugin 'VundleVim/Vundle.vim'
 
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'Shougo/neocomplete.vim'
-Plugin 'Shougo/neosnippet'
-Plugin 'Shougo/neosnippet-snippets'
-Plugin 'lervag/vimtex'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'scrooloose/syntastic'
-Plugin 'tpope/vim-fugitive'
-Plugin 'majutsushi/tagbar'
-Plugin 'flazz/vim-colorschemes'
+    Plugin 'scrooloose/nerdcommenter'
+    Plugin 'Shougo/neocomplete.vim'
+    Plugin 'Shougo/neosnippet'
+    Plugin 'Shougo/neosnippet-snippets'
+    Plugin 'lervag/vimtex'
+    Plugin 'vim-airline/vim-airline'
+    Plugin 'vim-airline/vim-airline-themes'
+    Plugin 'scrooloose/syntastic'
+    Plugin 'tpope/vim-fugitive'
+    Plugin 'majutsushi/tagbar'
+    Plugin 'flazz/vim-colorschemes'
+    Plugin 'JamshedVesuna/vim-markdown-preview'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -301,3 +302,9 @@ for tool in s:opam_packages
   endif
 endfor
 " ## end of OPAM user-setup addition for vim / base ## keep this line
+
+" vim-markdown-preview setting, using grip to generate html.
+let vim_markdown_preview_hotkey='<C-P>'
+let vim_markdown_preview_github=1
+"let vim_markdown_preview_pandoc=1
+let vim_markdown_preview_toggle=2

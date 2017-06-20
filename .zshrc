@@ -51,7 +51,10 @@ ZSH_THEME="ys"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+
 plugins=(git)
+plugins=(brew)
+plugins=(pep8)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -86,6 +89,7 @@ source $ZSH/oh-my-zsh.sh
 
 alias brewup="brew update;brew upgrade;brew cleanup;brew doctor"
 alias opamup="opam update;opam upgrade"
+alias texup="tlmgr update --list;sudo tlmgr update --all"
 alias vims="vim --servername VIM"
 alias convertflac="for i in *.flac; do ffmpeg -i "$i" -acodec alac "`basename "$i" .flac`.m4a"; done;"
 
