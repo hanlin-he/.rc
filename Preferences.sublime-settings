@@ -18,8 +18,8 @@
 		"draw_normal",
 		"draw_active"
 	],
-	"line_padding_bottom": 5,
-	"line_padding_top": 5,
+	"line_padding_bottom": 2,
+	"line_padding_top": 2,
 	"overlay_scroll_bars": "enabled",
 	"rulers":
 	[
