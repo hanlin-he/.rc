@@ -1,7 +1,7 @@
 {
 	"always_show_minimap_viewport": true,
 	"bold_folder_labels": true,
-	"color_scheme": "Packages/Boxy Theme/schemes/Boxy Tomorrow.tmTheme",
+	"color_scheme": "Packages/Theme - Monokai Pro/Monokai Pro.tmTheme",
 	"font_face": "inconsolata",
 	"font_options":
 	[
@@ -25,8 +25,9 @@
 	[
 		80
 	],
+	"spell_check": true,
 	"tab_size": 4,
-	"theme": "Boxy Tomorrow.sublime-theme",
+	"theme": "Monokai Pro.sublime-theme",
 	"theme_scrollbar_line": true,
 	"translate_tabs_to_spaces": true
 }

@@ -305,6 +305,6 @@ endfor
 
 " vim-markdown-preview setting, using grip to generate html.
 let vim_markdown_preview_hotkey='<C-P>'
-let vim_markdown_preview_github=1
+"let vim_markdown_preview_github=1
 "let vim_markdown_preview_pandoc=1
 let vim_markdown_preview_toggle=2
