@@ -100,3 +100,8 @@ export PATH="/usr/local/opt/sqlite/bin:$PATH"
 # Jenv Configuration
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
+export PATH="/usr/local/opt/openssl/bin:$PATH"
+export PATH="/usr/local/opt/gettext/bin:$PATH"
+export PATH="/usr/local/opt/icu4c/bin:$PATH"
+export PATH="/usr/local/opt/icu4c/sbin:$PATH"
+export SCALA_HOME="/usr/local/opt/scala/idea:$SCALA_HOME"
