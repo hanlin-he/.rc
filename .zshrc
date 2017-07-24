@@ -85,9 +85,9 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias brewup="brew update;brew upgrade;brew cleanup;brew doctor"
+alias brewup="brew update;brew upgrade;brew cleanup;brew doctor;brew cask outdated"
 alias opamup="opam update;opam upgrade"
-alias texup="tlmgr update --list;sudo tlmgr update --all"
+alias texup="sudo tlmgr update --self --all"
 alias vims="vim --servername VIM"
 alias convertflac="for i in *.flac; do ffmpeg -i "$i" -acodec alac "`basename "$i" .flac`.m4a"; done;"
 
@@ -105,3 +105,4 @@ export PATH="/usr/local/opt/gettext/bin:$PATH"
 export PATH="/usr/local/opt/icu4c/bin:$PATH"
 export PATH="/usr/local/opt/icu4c/sbin:$PATH"
 export SCALA_HOME="/usr/local/opt/scala/idea:$SCALA_HOME"
+export PATH="/usr/local/sbin:$PATH"
