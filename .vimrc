@@ -18,8 +18,9 @@
     Plugin 'maxboisvert/vim-simple-complete'
 
     Plugin 'lervag/vimtex'
-    Plugin 'vim-airline/vim-airline'
-    Plugin 'vim-airline/vim-airline-themes'
+"    Plugin 'vim-airline/vim-airline'
+"    Plugin 'vim-airline/vim-airline-themes'
+    Plugin 'itchyny/lightline.vim'
     Plugin 'scrooloose/syntastic'
     Plugin 'tpope/vim-fugitive'
     Plugin 'majutsushi/tagbar'
@@ -155,18 +156,10 @@ let g:vsc_type_complete_length = 3
     endif
 "}
 
-
-" vim-airline {
-    let g:airline_powerline_fonts = 1
-    if isdirectory(expand("~/.vim/bundle/vim-airline-themes/"))
-        let g:airline_theme = 'molokai'
-        if !exists('g:airline_powerline_fonts')
-            " Use the default set of separators with a few customizations
-            let g:airline_left_sep='›'  " Slightly fancier than '>'
-            let g:airline_right_sep='‹' " Slightly fancier than '<'
-        endif
-    endif
-" }
+" lightline
+" -- INSERT -- is unnecessary anymore because the mode information is displayed
+"  in the statusline.
+set noshowmode
 
 " TagBar {
     if isdirectory(expand("~/.vim/bundle/tagbar/"))
