@@ -89,7 +89,7 @@ alias brewup="brew update;brew upgrade;brew cleanup;brew doctor;brew cask outdat
 alias opamup="opam update;opam upgrade"
 alias texup="sudo tlmgr update --self --all"
 alias vims="vim --servername VIM"
-alias convertflac="for i in *.flac; do ffmpeg -i "$i" -acodec alac "`basename "$i" .flac`.m4a"; done;"
+alias convertflac=$'for f in ./*.flac; do avconv -i "$f" -c:a alac "${f%.*}.m4a"; done'
 
 export PATH="/usr/local/opt/curl/bin:$PATH"
 export PATH="/usr/local/opt/sqlite/bin:$PATH"
