@@ -108,7 +108,4 @@ export PATH="/usr/local/opt/sqlite/bin:$PATH"
 
 export PATH="/usr/local/opt/openssl/bin:$PATH"
 export PATH="/usr/local/opt/gettext/bin:$PATH"
-export PATH="/usr/local/opt/icu4c/bin:$PATH"
-export PATH="/usr/local/opt/icu4c/sbin:$PATH"
-export SCALA_HOME="/usr/local/opt/scala/idea:$SCALA_HOME"
 export PATH="/usr/local/sbin:$PATH"
