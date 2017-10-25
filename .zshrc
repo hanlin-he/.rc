@@ -112,3 +112,7 @@ export PATH="/usr/local/opt/icu4c/bin:$PATH"
 export PATH="/usr/local/opt/icu4c/sbin:$PATH"
 export SCALA_HOME="/usr/local/opt/scala/idea:$SCALA_HOME"
 export PATH="/usr/local/sbin:$PATH"
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+
+export HOMEBREW_GITHUB_API_TOKEN="c0dba5780110d6761eb6fd6da95afd54491aad84"

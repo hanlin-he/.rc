@@ -26,7 +26,7 @@
 	],
 	"spell_check": true,
 	"tab_size": 4,
-	"theme": "Monokai Pro.sublime-theme",
+	"theme": "Default.sublime-theme",
 	"theme_scrollbar_line": true,
 	"translate_tabs_to_spaces": true
 }
