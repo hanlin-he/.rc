@@ -26,6 +26,8 @@
     Plugin 'majutsushi/tagbar'
     Plugin 'flazz/vim-colorschemes'
     Plugin 'JamshedVesuna/vim-markdown-preview'
+    Plugin 'mattn/webapi-vim'
+    Plugin 'mattn/gist-vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -205,7 +207,7 @@ endfor
 
 " vim-markdown-preview setting, using grip to generate html.
 let vim_markdown_preview_hotkey='<C-P>'
-"let vim_markdown_preview_github=1
+let vim_markdown_preview_github=1
 "let vim_markdown_preview_pandoc=1
 let vim_markdown_preview_toggle=2
 let vim_markdown_preview_browser='Google Chrome'
