@@ -1,13 +1,14 @@
 {
 	"always_show_minimap_viewport": true,
 	"bold_folder_labels": true,
+	"color_scheme": "Packages/Boxy Theme/schemes/Boxy Yesterday.tmTheme",
 	"font_face": "Fira Mono",
 	"font_options":
 	[
 		"gray_antialias",
 		"subpixel_antialias"
 	],
-	"font_size": 18,
+	"font_size": 19,
 	"ignored_packages":
 	[
 		"Vintage"
@@ -26,7 +27,7 @@
 	],
 	"spell_check": true,
 	"tab_size": 4,
-	"theme": "Default.sublime-theme",
+	"theme": "Boxy Yesterday.sublime-theme",
 	"theme_scrollbar_line": true,
 	"translate_tabs_to_spaces": true
 }
