@@ -7,7 +7,8 @@ export ZSH=/Users/hanlin/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="ys"
+ZSH_THEME="random"
+
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -85,14 +86,21 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias brewup="brew update;brew upgrade;brew cleanup;brew doctor;brew cask outdated"
+alias brewup="brew update;brew upgrade;brew cleanup;brew doctor;brew cu -a"
 alias opamup="opam update;opam upgrade"
 alias texup="sudo tlmgr update --self --all"
+alias vimup="nvim +PluginUpdate +qall"
 alias vims="vim --servername VIM"
 alias convertflac=$'for f in ./*.flac; do avconv -i "$f" -c:a alac "${f%.*}.m4a"; done'
 
 export PATH="/usr/local/opt/curl/bin:$PATH"
 export PATH="/usr/local/opt/sqlite/bin:$PATH"
+export PATH="/usr/local/opt/openssl/bin:$PATH"
+export PATH="/usr/local/opt/gettext/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+eval $(thefuck --alias)
 
 # OPAM configuration
 . /Users/hanlin/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
@@ -106,10 +114,8 @@ export PATH="/usr/local/opt/sqlite/bin:$PATH"
 #export PATH="$PYENV_ROOT/bin:$PATH"
 #eval "$(pyenv init -)"
 
-export PATH="/usr/local/opt/openssl/bin:$PATH"
-export PATH="/usr/local/opt/gettext/bin:$PATH"
-export PATH="/usr/local/sbin:$PATH"
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-export HOMEBREW_GITHUB_API_TOKEN="c0dba5780110d6761eb6fd6da95afd54491aad84"
+# Self defined github credentials.
+source ~/.gitcredential
+
