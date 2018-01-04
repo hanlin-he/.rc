@@ -99,11 +99,11 @@ export PATH="/usr/local/opt/openssl/bin:$PATH"
 export PATH="/usr/local/opt/gettext/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
+# eval "$(jenv init -)"
 eval $(thefuck --alias)
 
 # OPAM configuration
-. /Users/hanlin/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+#. /Users/hanlin/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 # Jenv Configuration
 #export PATH="$HOME/.jenv/bin:$PATH"
@@ -117,5 +117,5 @@ eval $(thefuck --alias)
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Self defined github credentials.
-source ~/.gitcredential
+# source ~/.gitcredential
 
