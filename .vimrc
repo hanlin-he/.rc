@@ -27,6 +27,7 @@
     Plugin 'flazz/vim-colorschemes'
     Plugin 'JamshedVesuna/vim-markdown-preview'
     Plugin 'mattn/webapi-vim'
+    Plugin 'fatih/vim-go'
     Plugin 'mattn/gist-vim'
 
 " All of your Plugins must be added before the following line
