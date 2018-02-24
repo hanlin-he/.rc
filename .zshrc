@@ -114,6 +114,8 @@ export PATH="$HOME/.jenv/bin:$PATH"
 #export PATH="$PYENV_ROOT/bin:$PATH"
 #eval "$(pyenv init -)"
 
+alias git=hub
+
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Self defined github credentials.
