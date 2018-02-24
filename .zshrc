@@ -100,7 +100,7 @@ export PATH="/usr/local/opt/gettext/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$HOME/.jenv/bin:$PATH"
 # eval "$(jenv init -)"
-eval $(thefuck --alias)
+# eval $(thefuck --alias)
 
 # OPAM configuration
 #. /Users/hanlin/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
