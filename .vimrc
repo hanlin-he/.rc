@@ -10,6 +10,7 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'dracula/vim'
 Plugin 'fatih/vim-go'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'itchyny/lightline.vim'
@@ -43,7 +44,7 @@ set laststatus=2
 syntax on
 
 " Vim UI
-colorscheme molokai
+colorscheme dracula
 set tabpagemax=15               " Only show 15 tabs
 set showmode                    " Display the current mode
 set cursorline                  " Highlight current line
@@ -118,6 +119,9 @@ let g:vsc_type_complete_length = 3
 " lightline
 " -- INSERT -- is unnecessary anymore because the mode information is displayed in the statusline.
 set noshowmode
+
+" Vimtex setting
+let g:vimtex_view_method='skim'
 
 " vim-markdown-preview setting, using grip to generate html.
 let vim_markdown_preview_hotkey='<C-P>'

@@ -1,0 +1,32 @@
+alias brewup="brew update;brew upgrade;brew cleanup;brew doctor;brew cu -a"
+alias opamup="opam update;opam upgrade"
+alias texup="sudo tlmgr update --self --all"
+alias vimup="nvim +PluginUpdate +qall"
+alias vims="vim --servername VIM"
+alias convertflac=$'for f in ./*.flac; do avconv -i "$f" -c:a alac "${f%.*}.m4a"; done'
+
+changelaunchpadlayout() {
+    defaults write com.apple.dock springboard-columns -int $1;defaults write com.apple.dock springboard-rows -int $2;defaults write com.apple.dock ResetLaunchPad -bool TRUE;killall Dock
+}
+alias cll=changelaunchpadlayout
+
+scpvm-full() {
+    scp $1 hanlhe@b4cog92191.ocean.af:/tmp
+}
+alias scpvm=scpvm-full
+
+makescp-full() {
+    make $2 VERSION=$1 && scp build/tet-sensor-$1-$3-linux-amd64.rpm hanlhe@b4cog92191.ocean.af:/tmp
+}
+alias makescp=makescp-full
+
+alias gosensor="cd ~/go/src/github.com/TetrationAnalytics/tetration/sensor-go/vflow"
+alias goams="cd ~/go/src/github.com/TetrationAnalytics/tetration/golang/src/tetration/ams"
+alias sensore2e="cd ~/git/tetration/test_framework/src/e2e"
+
+alias gcp="git cherry-pick -x"
+
+erpm-full(){
+    rpm2cpio $1 | cpio -idmv
+}
+alias erpm=erpm-full
