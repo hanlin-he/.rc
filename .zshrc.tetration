@@ -1,10 +1,3 @@
-alias brewup="brew update;brew upgrade;brew cleanup;brew doctor;brew cu -a"
-alias opamup="opam update;opam upgrade"
-alias texup="sudo tlmgr update --self --all"
-alias vimup="nvim +PluginUpdate +qall"
-alias vims="vim --servername VIM"
-alias convertflac=$'for f in ./*.flac; do avconv -i "$f" -c:a alac "${f%.*}.m4a"; done'
-
 changelaunchpadlayout() {
     defaults write com.apple.dock springboard-columns -int $1;defaults write com.apple.dock springboard-rows -int $2;defaults write com.apple.dock ResetLaunchPad -bool TRUE;killall Dock
 }
@@ -20,9 +13,10 @@ makescp-full() {
 }
 alias makescp=makescp-full
 
-alias gosensor="cd ~/go/src/github.com/TetrationAnalytics/tetration/sensor-go/vflow"
-alias goams="cd ~/go/src/github.com/TetrationAnalytics/tetration/golang/src/tetration/ams"
-alias sensore2e="cd ~/git/tetration/test_framework/src/e2e"
+alias cdtet="cd ~/go/src/github.com/TetrationAnalytics/tetration/"
+alias cdsensor="cd ~/go/src/github.com/TetrationAnalytics/tetration/sensor-go/appliance"
+alias cdams="cd ~/go/src/github.com/TetrationAnalytics/tetration/golang/src/tetration/ams"
+alias cde2e="cd ~/git/tetration/test_framework/src/e2e"
 
 alias gcp="git cherry-pick -x"
 
@@ -30,3 +24,17 @@ erpm-full(){
     rpm2cpio $1 | cpio -idmv
 }
 alias erpm=erpm-full
+
+replace-rpm() {
+    rm -rf /tmp/usr
+    erpm $1
+    cp /tmp/usr/local/tet-netflow/tet-netflowsensor /usr/local/tet-netflow
+}
+alias rrpm=replace-rpm
+
+alias startnf='systemctl restart tet-netflowsensor.service'
+alias statusnf='systemctl status tet-netflowsensor.service'
+alias stopnf='systemctl stop tet-netflowsensor.service'
+alias startaws='systemctl restart tet-awsvpclogs-downloader.service'
+alias statusaws='systemctl status tet-awsvpclogs-downloader.service'
+alias stopaws='systemctl stop tet-awsvpclogs-downloader.service'
