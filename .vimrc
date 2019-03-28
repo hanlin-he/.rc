@@ -1,50 +1,43 @@
 " Basic and Vundle
 set nocompatible                    " Must be first line
-filetype off
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins call
-" vundle#begin('~/some/path/here')
+" Plugins will be downloaded under the specified directory.
+call plug#begin('~/.vim/plugged')
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'dracula/vim'
-Plugin 'fatih/vim-go'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'itchyny/lightline.vim'
-Plugin 'JamshedVesuna/vim-markdown-preview'
-Plugin 'lervag/vimtex'
-Plugin 'mattn/webapi-vim'
-Plugin 'mattn/gist-vim'
-Plugin 'maxboisvert/vim-simple-complete'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'tpope/vim-fugitive'
-Plugin 'vim-syntastic/syntastic'
-Plugin 'w0rp/ale'
+" Declare the list of plugins.
+Plug 'tpope/vim-sensible'
+Plug 'chriskempson/base16-vim'
+Plug 'fatih/vim-go'
+Plug 'flazz/vim-colorschemes'
+Plug 'itchyny/lightline.vim'
+Plug 'JamshedVesuna/vim-markdown-preview'
+Plug 'lervag/vimtex'
+Plug 'mattn/webapi-vim'
+Plug 'mattn/gist-vim'
+Plug 'maxboisvert/vim-simple-complete'
+Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-syntastic/syntastic'
+Plug 'w0rp/ale'
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-
-filetype plugin indent on " Enable filetype
+" List ends here. Plugins become visible to Vim after this call.
+call plug#end()
 
 " General
 " set autowrite                       " Automatically write a file when leaving a modified buffer
 set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
 set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
 set virtualedit=onemore             " Allow for cursor beyond last character
-set history=1000                    " Store a ton of history (default is 20)
 set spell                           " Spell checking on
 set hidden                          " Allow buffer switching without saving
 set iskeyword-=.                    " '.' is an end of word designator
 set iskeyword-=#                    " '#' is an end of word designator
 set iskeyword-=-                    " '-' is an end of word designator
 set laststatus=2
-syntax on
 
 " Vim UI
-colorscheme dracula
+let base16colorspace=256
+" colorscheme base16-default-light
 set tabpagemax=15               " Only show 15 tabs
 set showmode                    " Display the current mode
 set cursorline                  " Highlight current line
@@ -58,7 +51,6 @@ if has('cmdline_info')
     set showcmd                 " Show partial commands in status line and
 endif
 
-set backspace=indent,eol,start  " Backspace for dummies
 set linespace=0                 " No extra spaces between rows
 set number                      " Line numbers on
 set showmatch                   " Show matching brackets/parenthesis

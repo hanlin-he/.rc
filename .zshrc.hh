@@ -1,7 +1,7 @@
 alias brewup="brew update;brew upgrade;brew cleanup;brew doctor;brew cu -a"
 alias opamup="opam update;opam upgrade"
 alias texup="sudo tlmgr update --self --all"
-alias vimup="vim +PluginUpdate +qall"
+alias vimup="vim +PlugUpdate +qall"
 alias vims="vim --servername VIM"
 alias convertflac=$'for f in ./*.flac; do avconv -i "$f" -c:a alac "${f%.*}.m4a"; done'
 
@@ -10,3 +10,10 @@ changelaunchpadlayout() {
 }
 alias cll=changelaunchpadlayout
 alias git=hub
+
+gcol() {
+    git checkout $1 && git pull
+}
+
+export BAT_THEME="GitHub"
+alias cat=bat

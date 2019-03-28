@@ -4,7 +4,7 @@ changelaunchpadlayout() {
 alias cll=changelaunchpadlayout
 
 scpvm-full() {
-    scp $1 hanlhe@b4cog92191.ocean.af:/tmp
+    scp -r $1 hanlhe@b4cog92191.ocean.af:/tmp
 }
 alias scpvm=scpvm-full
 
@@ -15,8 +15,9 @@ alias makescp=makescp-full
 
 alias cdtet="cd ~/go/src/github.com/TetrationAnalytics/tetration/"
 alias cdsensor="cd ~/go/src/github.com/TetrationAnalytics/tetration/sensor-go/appliance"
-alias cdams="cd ~/go/src/github.com/TetrationAnalytics/tetration/golang/src/tetration/ams"
-alias cde2e="cd ~/git/tetration/test_framework/src/e2e"
+alias cdams="cd ~/workdir/tetration/java/adhoc/scheduler"
+alias cdamsgo="cd ~/workdir/tetration/golang/src/tetration/ams"
+alias cde2e="cd ~/workdir/tetration/test_framework/src/e2e"
 
 alias gcp="git cherry-pick -x"
 
@@ -242,4 +243,24 @@ function tunnel()
 function deploy-happobat-ams() {
     deploy-happobat1-ams $1 $2
     deploy-happobat2-ams $1 $2
+}
+
+function mdev()
+{
+   if [ "$1" = "" ]; then
+       echo "Usage: $funcstack[1] <cluster name/id>";
+       return;
+   fi
+   ssh -N -C -vv \
+   -L 9196:1.1.1.12:9196 \
+   -L 8090:druidHistoricalBroker-1:8090 \
+   -L 8889:orchestrator-1:8889 \
+   -L 9696:appserver-1:9696 \
+   -L 7733:appserver-1:7733 \
+   -L 4242:tsdbBosunGrafana-1:4242 \
+   -L 8086:happobat-1:8086 \
+   -L 8080:happobat-1:8080 \
+   -L 8118:appserver-1:8118 \
+   -L 38017:mongodb-2:27017 \
+   -l tetter orch-$1.tetrationanalytics.com
 }
