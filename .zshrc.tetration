@@ -1,3 +1,6 @@
+export GOPATH=$HOME/workdir/go
+export PATH="$GOPATH/bin:$PATH"
+
 changelaunchpadlayout() {
     defaults write com.apple.dock springboard-columns -int $1;defaults write com.apple.dock springboard-rows -int $2;defaults write com.apple.dock ResetLaunchPad -bool TRUE;killall Dock
 }
@@ -13,11 +16,12 @@ makescp-full() {
 }
 alias makescp=makescp-full
 
-alias cdtet="cd ~/go/src/github.com/TetrationAnalytics/tetration/"
-alias cdsensor="cd ~/go/src/github.com/TetrationAnalytics/tetration/sensor-go/appliance"
-alias cdams="cd ~/workdir/tetration/java/adhoc/scheduler"
-alias cdamsgo="cd ~/workdir/tetration/golang/src/tetration/ams"
-alias cde2e="cd ~/workdir/tetration/test_framework/src/e2e"
+export WORKDIR=$HOME/workdir
+alias cdtet="cd $WORKDIR/go/src/github.com/TetrationAnalytics/tetration/"
+alias cdsensor="cd $WORKDIR/go/src/github.com/TetrationAnalytics/tetration/sensor-go/appliance"
+alias cdams="cd $WORKDIR/java/tetration/java/adhoc/scheduler"
+alias cdamsgo="cd $WORKDIR/java/tetration/golang/src/tetration/ams"
+alias cde2e="cd $WORKDIR/regression/tetration/test_framework/src/e2e"
 
 alias gcp="git cherry-pick -x"
 
@@ -32,6 +36,21 @@ replace-rpm() {
     cp /tmp/usr/local/tet-netflow/tet-netflowsensor /usr/local/tet-netflow
 }
 alias rrpm=replace-rpm
+
+chrome-full() {
+    open -a /Applications/Google\ Chrome.app http://$1
+}
+alias chrome=chrome-full
+
+chromes-full() {
+    open -a /Applications/Google\ Chrome.app https://$1
+}
+alias chromes=chromes-full
+
+chromecluster-full() {
+    open -a /Applications/Google\ Chrome.app https://$1.tetrationanalytics.com
+}
+alias chromecluster=chromecluster-full
 
 alias startnf='systemctl restart tet-netflowsensor.service'
 alias statusnf='systemctl status tet-netflowsensor.service'
@@ -230,7 +249,6 @@ function clusterScp()
     scp $2 tetter@orch-$1.tetrationanalytics.com:/tmp/
 }
 
-
 function tunnel()
 {
     if [ "$1" = "" ]; then
@@ -263,4 +281,135 @@ function mdev()
    -L 8118:appserver-1:8118 \
    -L 38017:mongodb-2:27017 \
    -l tetter orch-$1.tetrationanalytics.com
+}
+
+function deploy-appserver1-openapi()
+{
+    if [ "$1" = "" ]; then
+        echo "Usage: $funcstack[1] <cluster name/id> <binary_to_scp_path>";
+        return;
+    fi
+    if [ "$2" = "" ]; then
+        echo "Usage: $funcstack[1] <cluster name/id> <binary_to_scp_path>";
+        return;
+    fi
+
+    cluster="orch-$1.tetrationanalytics.com"
+    appserver="appserver-1"
+    tmp_loc="/tmp/api.tmp"
+
+    echo "Copying $2 to cluster $1 -- $appserver:/opt/h4/api/api_server"
+
+    read "response?Are you sure ? [Y/n] "
+    response=${response:l} #tolower
+    if [[ $response =~ ^(yes|y| ) ]] || [[ -z $response ]]; then
+        scp $2 tetter@$cluster:$tmp_loc
+        ssh tetter@$cluster "sudo su - tetinstall -c 'scp $tmp_loc $appserver:/tmp'"
+    else
+        return 1
+    fi
+
+    ssh tetter@$cluster "sudo su - tetinstall -c 'ssh $appserver sudo mv $tmp_loc /opt/h4/api/api_server'"
+    ssh tetter@$cluster "sudo su - tetinstall -c 'ssh $appserver sudo sv restart api_server'"
+}
+
+function deploy-appserver2-openapi()
+{
+    if [ "$1" = "" ]; then
+        echo "Usage: $funcstack[1] <cluster name/id> <binary_to_scp_path>";
+        return;
+    fi
+    if [ "$2" = "" ]; then
+        echo "Usage: $funcstack[1] <cluster name/id> <binary_to_scp_path>";
+        return;
+    fi
+
+    cluster="orch-$1.tetrationanalytics.com"
+    appserver="appserver-2"
+    tmp_loc="/tmp/api.tmp"
+
+    echo "Copying $2 to cluster $1 -- $appserver:/opt/h4/api/api_server"
+
+    read "response?Are you sure ? [Y/n] "
+    response=${response:l} #tolower
+    if [[ $response =~ ^(yes|y| ) ]] || [[ -z $response ]]; then
+        scp $2 tetter@$cluster:$tmp_loc
+        ssh tetter@$cluster "sudo su - tetinstall -c 'scp $tmp_loc $appserver:/tmp'"
+    else
+        return 1
+    fi
+
+    ssh tetter@$cluster "sudo su - tetinstall -c 'ssh $appserver sudo mv $tmp_loc /opt/h4/api/api_server'"
+    ssh tetter@$cluster "sudo su - tetinstall -c 'ssh $appserver sudo sv restart api_server'"
+}
+
+function deploy-appserver-openapi(){
+    deploy-appserver1-openapi $1 $2
+    deploy-appserver2-openapi $1 $2
+}
+
+
+function deploy-appserver1-wss()
+{
+    if [ "$1" = "" ]; then
+        echo "Usage: $funcstack[1] <cluster name/id> <binary_to_scp_path>";
+        return;
+    fi
+    if [ "$2" = "" ]; then
+        echo "Usage: $funcstack[1] <cluster name/id> <binary_to_scp_path>";
+        return;
+    fi
+
+    cluster="orch-$1.tetrationanalytics.com"
+    appserver="appserver-1"
+    tmp_loc="/tmp/api.tmp"
+
+    echo "Copying $2 to cluster $1 -- $appserver:/opt/wss/wss"
+
+    read "response?Are you sure ? [Y/n] "
+    response=${response:l} #tolower
+    if [[ $response =~ ^(yes|y| ) ]] || [[ -z $response ]]; then
+        scp $2 tetter@$cluster:$tmp_loc
+        ssh tetter@$cluster "sudo su - tetinstall -c 'scp $tmp_loc $appserver:/tmp'"
+    else
+        return 1
+    fi
+
+    ssh tetter@$cluster "sudo su - tetinstall -c 'ssh $appserver sudo mv $tmp_loc /opt/wss/wss'"
+    ssh tetter@$cluster "sudo su - tetinstall -c 'ssh $appserver sudo sv restart wss'"
+}
+
+function deploy-appserver2-wss()
+{
+    if [ "$1" = "" ]; then
+        echo "Usage: $funcstack[1] <cluster name/id> <binary_to_scp_path>";
+        return;
+    fi
+    if [ "$2" = "" ]; then
+        echo "Usage: $funcstack[1] <cluster name/id> <binary_to_scp_path>";
+        return;
+    fi
+
+    cluster="orch-$1.tetrationanalytics.com"
+    appserver="appserver-2"
+    tmp_loc="/tmp/api.tmp"
+
+    echo "Copying $2 to cluster $1 -- $appserver:/opt/wss/wss"
+
+    read "response?Are you sure ? [Y/n] "
+    response=${response:l} #tolower
+    if [[ $response =~ ^(yes|y| ) ]] || [[ -z $response ]]; then
+        scp $2 tetter@$cluster:$tmp_loc
+        ssh tetter@$cluster "sudo su - tetinstall -c 'scp $tmp_loc $appserver:/tmp'"
+    else
+        return 1
+    fi
+
+    ssh tetter@$cluster "sudo su - tetinstall -c 'ssh $appserver sudo mv $tmp_loc /opt/wss/wss'"
+    ssh tetter@$cluster "sudo su - tetinstall -c 'ssh $appserver sudo sv restart wss'"
+}
+
+function deploy-appserver-wss(){
+    deploy-appserver1-wss $1 $2
+    deploy-appserver2-wss $1 $2
 }

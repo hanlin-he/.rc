@@ -15,5 +15,3 @@ gcol() {
     git checkout $1 && git pull
 }
 
-export BAT_THEME="GitHub"
-alias cat=bat
