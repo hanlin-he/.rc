@@ -59,228 +59,149 @@ alias startaws='systemctl restart tet-awsvpclogs-downloader.service'
 alias statusaws='systemctl status tet-awsvpclogs-downloader.service'
 alias stopaws='systemctl stop tet-awsvpclogs-downloader.service'
 
-function happobat1()
-{
-    if [ "$1" = "" ]; then
-        echo "Usage: $funcstack[1] <cluster name/id>";
-        return;
-    fi
-    ssh -t tetter@orch-$1.tetrationanalytics.com "sudo su - tetinstall -c 'ssh happobat-1'"
-
+# ssh access to happobat server
+function happobat() {
+  if [[ "$1" == "" ]] || [[ "$2" == "" ]]; then
+    echo "Usage: ${funcstack[1]} <happobat instance id> <cluster name/id>"
+    return
+  fi
+  ssh -t tetter@orch-"$2".tetrationanalytics.com "sudo su - tetinstall -c 'ssh happobat-$1'"
 }
 
+# alias for ssh to specific happobat instance
+alias happobat1="happobat 1"
+alias happobat2="happobat 2"
 
-function happobat2()
-{
-    if [ "$1" = "" ]; then
-        echo "Usage: $funcstack[1] <cluster name/id>";
-        return;
-    fi
-    ssh -t tetter@orch-$1.tetrationanalytics.com "sudo su - tetinstall -c 'ssh happobat-2'"
-
+# turnoff services in happobat
+function turnoff-happobat() {
+  if [[ "$1" == "" ]] || [[ "$2" == "" ]] || [[ "$3" == "" ]]; then
+    echo "Usage: ${funcstack[1]} <happobat instance id> <component> <cluster name/id>"
+    return
+  fi
+  ssh -t tetter@orch-"$3".tetrationanalytics.com "sudo su - tetinstall -c 'ssh happobat-$1 sudo sv stop $2'"
 }
 
-function turnoff-happobat2-ams()
-{
-    if [ "$1" = "" ]; then
-        echo "Usage: $funcstack[1] <cluster name/id>";
-        return;
-    fi
+# alias for turn off specific service on specific happobat instance
+alias turnoff-ams1="turnoff-happobat 1 adhocsched"
+alias turnoff-ams2="turnoff-happobat 2 adhocsched"
+alias turnoff-amsgo1="turnoff-happobat 1 adhoc_ams_ext"
+alias turnoff-amsgo2="turnoff-happobat 2 adhoc_ams_ext"
 
-    ssh -t tetter@orch-$1.tetrationanalytics.com "sudo su - tetinstall -c 'ssh happobat-2 sudo sv stop adhocsched'"
+# deploy a service to happobat (AMS/AMS-go/AQS...)
+function deploy-happobat() {
+  if [[ "$1" == "" ]] || [[ "$2" == "" ]] || [[ "$3" == "" ]] || [[ "$4" == "" ]]; then
+    echo "Usage: ${funcstack[1]} <happobat instance id> <component_path> <component_service> <cluster name/id> <binary_to_scp_path>"
+    echo "Example: ${funcstack[1]} 1 /opt/tetration/adhocsched/adhoc-scheduler.jar adhocsched beretta target/adhoc-scheduler-SNAPSHOT-1.0.jar"
+    return
+  fi
 
+  ams="happobat-$1"
+  component_path="$2"
+  component_service="$3"
+  cluster="orch-$4.tetrationanalytics.com"
+  binary="$5"
+
+  tmp_loc="/tmp/ams.tmp"
+
+  echo "Copying $binary to cluster $cluster -- $ams:$component_path"
+
+  read -r "response?Are you sure ? [Y/n] "
+  response=${response:l} #tolower
+  if [[ $response =~ ^(yes|y| ) ]] || [[ -z $response ]]; then
+    scp "$binary" tetter@"$cluster:$tmp_loc"
+    ssh tetter@"$cluster" "sudo su - tetinstall -c 'scp $tmp_loc $ams:/tmp'"
+  else
+    return 1
+  fi
+
+  ssh tetter@"$cluster" "sudo su - tetinstall -c 'ssh $ams sudo mv $tmp_loc $component_path'"
+  ssh tetter@"$cluster" "sudo su - tetinstall -c 'ssh $ams sudo sv restart $component_service'"
 }
 
-function deploy-happobat1-ams()
-{
-    if [ "$1" = "" ]; then
-        echo "Usage: $funcstack[1] <cluster name/id> <binary_to_scp_path>";
-        return;
-    fi
-    if [ "$2" = "" ]; then
-        echo "Usage: $funcstack[1] <cluster name/id> <binary_to_scp_path>";
-        return;
-    fi
+# deploy ams to a cluster
+AMS_SERVICE=adhocsched
+AMS_PATH=/opt/tetration/$AMS_SERVICE/adhoc-scheduler.jar
+alias deploy-ams1="deploy-happobat 1 $AMS_PATH $AMS_SERVICE"
+alias deploy-ams2="deploy-happobat 2 $AMS_PATH $AMS_SERVICE"
 
-    cluster="orch-$1.tetrationanalytics.com"
-    ams="happobat-1"
-    tmp_loc="/tmp/ams.tmp"
+# deploy aqs to a cluster
+AQS_SERVICE=appset_query_server
+AQS_PATH=/opt/tetration/$AQS_SERVICE/appset-query-server.jar
+alias deploy-aqs1="deploy-happobat 1 $AQS_PATH $AQS_SERVICE"
+alias deploy-aqs2="deploy-happobat 2 $AQS_PATH $AQS_SERVICE"
 
-    echo "Copying $2 to cluster $1 -- $ams:/opt/tetration/adhocsched/adhoc-scheduler.jar"
+# deploy ams-go to a cluster
+AMSGO_SERVICE=adhoc_ams_ext
+AMSGO_PATH=/opt/tetration/$AMSGO_SERVICE/ams_ext_server
+alias deploy-amsgo1="deploy-happobat 1 $AMSGO_PATH $AMSGO_SERVICE"
+alias deploy-amsgo2="deploy-happobat 2 $AMSGO_PATH $AMSGO_SERVICE"
 
-    read "response?Are you sure ? [Y/n] "
-    response=${response:l} #tolower
-    if [[ $response =~ ^(yes|y| ) ]] || [[ -z $response ]]; then
-        scp $2 tetter@$cluster:$tmp_loc
-        ssh tetter@$cluster "sudo su - tetinstall -c 'scp $tmp_loc $ams:/tmp'"
-    else
-        return 1
-    fi
-
-    ssh tetter@$cluster "sudo su - tetinstall -c 'ssh $ams sudo mv $tmp_loc  /opt/tetration/adhocsched/adhoc-scheduler.jar'"
-    ssh tetter@$cluster "sudo su - tetinstall -c 'ssh $ams sudo sv restart adhocsched'"
+# ssh access to mongodb
+function mongo_db() {
+  if [[ "$1" == "" ]] || [[ "$2" == "" ]]; then
+    echo "Usage: ${funcstack[1]} <mongodb instance id> <cluster name/id>"
+    return
+  fi
+  ssh -t tetter@orch-$2.tetrationanalytics.com "sudo su - tetinstall -c 'ssh -t mongodb-$1 mongo'"
 }
 
-function deploy-happobat1-aqs()
-{
-    if [ "$1" = "" ]; then
-        echo "Usage: $funcstack[1] <cluster name/id> <binary_to_scp_path>";
-        return;
-    fi
-    if [ "$2" = "" ]; then
-        echo "Usage: $funcstack[1] <cluster name/id> <binary_to_scp_path>";
-        return;
-    fi
+# legacy alias support
+alias mgo1="mongo_db 1"
+alias mgo2="mongo_db 2"
+alias mgo=mgo1
 
-    cluster="orch-$1.tetrationanalytics.com"
-    ams="happobat-1"
-    tmp_loc="/tmp/aqs.tmp"
-
-    echo "Copying $2 to cluster $1 -- $ams:/opt/tetration/appset_query_server/appset-query-server.jar"
-
-    read "response?Are you sure ? [Y/n] "
-    response=${response:l} #tolower
-    if [[ $response =~ ^(yes|y| ) ]] || [[ -z $response ]]; then
-        scp $2 tetter@$cluster:$tmp_loc
-        ssh tetter@$cluster "sudo su - tetinstall -c 'scp $tmp_loc $ams:/tmp'"
-    else
-        return 1
-    fi
-
-    ssh tetter@$cluster "sudo su - tetinstall -c 'ssh $ams sudo mv $tmp_loc  /opt/tetration/appset_query_server/appset-query-server.jar'"
-    ssh tetter@$cluster "sudo su - tetinstall -c 'ssh $ams sudo sv restart appset_query_server'"
+# ssh access to orchestrator
+function cluster() {
+  if [ "$1" = "" ]; then
+    echo "Usage: ${funcstack[1]} <cluster name/id>"
+    return
+  fi
+  if [ "$2" = "" ]; then
+    ssh -t tetter@orch-$1.tetrationanalytics.com "sudo su - tetinstall"
+  else
+    ssh -t tetter@orch-$1.tetrationanalytics.com "sudo su - tetinstall -c 'ssh $2'"
+  fi
 }
 
-function deploy-happobat2-ams()
-{
-    if [ "$1" = "" ]; then
-        echo "Usage: $funcstack[1] <cluster name/id> <binary_to_scp_path>";
-        return;
-    fi
-    if [ "$2" = "" ]; then
-        echo "Usage: $funcstack[1] <cluster name/id> <binary_to_scp_path>";
-        return;
-    fi
-
-    cluster="orch-$1.tetrationanalytics.com"
-    ams="happobat-2"
-    tmp_loc="/tmp/ams.tmp"
-
-    echo "Copying $2 to cluster $1 -- $ams:/opt/tetration/adhocsched/adhoc-scheduler.jar"
-
-    read "response?Are you sure ? [Y/n] "
-    response=${response:l} #tolower
-    if [[ $response =~ ^(yes|y| ) ]] || [[ -z $response ]]; then
-        scp $2 tetter@$cluster:$tmp_loc
-        ssh tetter@$cluster "sudo su - tetinstall -c 'scp $tmp_loc $ams:/tmp'"
-    else
-        return 1
-    fi
-
-    ssh tetter@$cluster "sudo su - tetinstall -c 'ssh $ams sudo mv $tmp_loc  /opt/tetration/adhocsched/adhoc-scheduler.jar'"
-    ssh tetter@$cluster "sudo su - tetinstall -c 'ssh $ams sudo sv restart adhocsched'"
+# scp file to orchestrator
+function clusterScp() {
+  if [ "$1" = "" ]; then
+    echo "Usage: ${funcstack[1]} <cluster name/id> <binary_to_scp_path>"
+    return
+  fi
+  if [ "$2" = "" ]; then
+    echo "Usage: ${funcstack[1]} <cluster name/id> <binary_to_scp_path>"
+    return
+  fi
+  scp $2 tetter@orch-$1.tetrationanalytics.com:/tmp/
 }
 
-
-function deploy-happobat2-aqs()
-{
-    if [ "$1" = "" ]; then
-        echo "Usage: $funcstack[1] <cluster name/id> <binary_to_scp_path>";
-        return;
-    fi
-    if [ "$2" = "" ]; then
-        echo "Usage: $funcstack[1] <cluster name/id> <binary_to_scp_path>";
-        return;
-    fi
-
-    cluster="orch-$1.tetrationanalytics.com"
-    ams="happobat-2"
-    tmp_loc="/tmp/aqs.tmp"
-
-    echo "Copying $2 to cluster $1 -- $ams:/opt/tetration/appset_query_server/appset-query-server.jar"
-
-    read "response?Are you sure ? [Y/n] "
-    response=${response:l} #tolower
-    if [[ $response =~ ^(yes|y| ) ]] || [[ -z $response ]]; then
-        scp $2 tetter@$cluster:$tmp_loc
-        ssh tetter@$cluster "sudo su - tetinstall -c 'scp $tmp_loc $ams:/tmp'"
-    else
-        return 1
-    fi
-
-    ssh tetter@$cluster "sudo su - tetinstall -c 'ssh $ams sudo mv $tmp_loc /opt/tetration/appset_query_server/appset-query-server.jar'"
-    ssh tetter@$cluster "sudo su - tetinstall -c 'ssh $ams sudo sv restart appset_query_server'"
+function tunnel() {
+  if [ "$1" = "" ]; then
+    echo "Usage: ${funcstack[1]} <cluster name/id>"
+    return
+  fi
+  ssh -f -N -L 8090:druid-broker.service.consul:8090 -L 8091:haproxy-internal.service.consul:80 -L 8080:happobat-1:8080 -L 8087:happobat-1:8087 -l tetter orch-$1.tetrationanalytics.com
 }
 
-function mgo()
-{
-    if [ "$1" = "" ]; then
-        echo "Usage: $funcstack[1] <cluster name/id>";
-        return;
-    fi
-    ssh -t tetter@orch-$1.tetrationanalytics.com "sudo su - tetinstall -c 'ssh -t mongodb-1 mongo'"
-
-}
-
-
-function cluster()
-{
-    if [ "$1" = "" ]; then
-        echo "Usage: $funcstack[1] <cluster name/id>";
-        return;
-    fi
-    if [ "$2" = "" ]; then
-        ssh -t tetter@orch-$1.tetrationanalytics.com "sudo su - tetinstall"
-    else
-        ssh -t tetter@orch-$1.tetrationanalytics.com "sudo su - tetinstall -c 'ssh $2'"
-    fi
-}
-
-function clusterScp()
-{
-    if [ "$1" = "" ]; then
-        echo "Usage: $funcstack[1] <cluster name/id> <binary_to_scp_path>";
-        return;
-    fi
-    if [ "$2" = "" ]; then
-        echo "Usage: $funcstack[1] <cluster name/id> <binary_to_scp_path>";
-        return;
-    fi
-    scp $2 tetter@orch-$1.tetrationanalytics.com:/tmp/
-}
-
-function tunnel()
-{
-    if [ "$1" = "" ]; then
-        echo "Usage: $funcstack[1] <cluster name/id>";
-        return;
-    fi
-    ssh -f -N -L 8090:druid-broker.service.consul:8090 -L 8091:haproxy-internal.service.consul:80 -L 8080:happobat-1:8080 -L 8087:happobat-1:8087 -l tetter orch-$1.tetrationanalytics.com
-}
-
-function deploy-happobat-ams() {
-    deploy-happobat1-ams $1 $2
-    deploy-happobat2-ams $1 $2
-}
-
-function mdev()
-{
-   if [ "$1" = "" ]; then
-       echo "Usage: $funcstack[1] <cluster name/id>";
-       return;
-   fi
-   ssh -N -C -vv \
-   -L 9196:1.1.1.12:9196 \
-   -L 8090:druidHistoricalBroker-1:8090 \
-   -L 8889:orchestrator-1:8889 \
-   -L 9696:appserver-1:9696 \
-   -L 7733:appserver-1:7733 \
-   -L 4242:tsdbBosunGrafana-1:4242 \
-   -L 8086:happobat-1:8086 \
-   -L 8080:happobat-1:8080 \
-   -L 8118:appserver-1:8118 \
-   -L 38017:mongodb-2:27017 \
-   -l tetter orch-$1.tetrationanalytics.com
+# start tunnel for ams/amsgo etc..
+function mdev() {
+  if [ "$1" = "" ]; then
+    echo "Usage: $funcstack[1] <cluster name/id>"
+    return
+  fi
+  ssh -N -C -vv \
+    -L 9196:1.1.1.12:9196 \
+    -L 8090:druidHistoricalBroker-1:8090 \
+    -L 8889:orchestrator-1:8889 \
+    -L 9696:appserver-1:9696 \
+    -L 7733:appserver-1:7733 \
+    -L 4242:tsdbBosunGrafana-1:4242 \
+    -L 8086:happobat-1:8086 \
+    -L 8080:happobat-1:8080 \
+    -L 8118:appserver-1:8118 \
+    -L 38017:mongodb-2:27017 \
+    -l tetter orch-$1.tetrationanalytics.com
 }
 
 function deploy-appserver1-openapi()
