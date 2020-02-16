@@ -6,7 +6,6 @@ call plug#begin('~/.vim/plugged')
 
 " Declare the list of plugins.
 Plug 'tpope/vim-sensible'
-Plug 'chriskempson/base16-vim'
 Plug 'fatih/vim-go'
 Plug 'flazz/vim-colorschemes'
 Plug 'itchyny/lightline.vim'
@@ -37,7 +36,8 @@ set laststatus=2
 
 " Vim UI
 let base16colorspace=256
-" colorscheme base16-default-light
+set background=light
+colorscheme solarized
 set tabpagemax=15               " Only show 15 tabs
 set showmode                    " Display the current mode
 set cursorline                  " Highlight current line
@@ -117,7 +117,7 @@ let g:vimtex_view_method='skim'
 
 " vim-markdown-preview setting, using grip to generate html.
 let vim_markdown_preview_hotkey='<C-P>'
-let vim_markdown_preview_github=1
+let vim_markdown_preview_github=0
 let vim_markdown_preview_toggle=2
 let vim_markdown_preview_browser='Google Chrome'
 
