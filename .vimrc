@@ -35,9 +35,6 @@ set iskeyword-=-                    " '-' is an end of word designator
 set laststatus=2
 
 " Vim UI
-let base16colorspace=256
-set background=light
-colorscheme solarized
 set tabpagemax=15               " Only show 15 tabs
 set showmode                    " Display the current mode
 set cursorline                  " Highlight current line

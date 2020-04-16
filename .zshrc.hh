@@ -1,4 +1,4 @@
-alias brewup="brew update;brew upgrade;brew cleanup;brew doctor;brew cu -a"
+alias brewup="brew update;brew upgrade;brew cleanup;brew doctor;brew cu -ayv"
 alias opamup="opam update;opam upgrade"
 alias texup="sudo tlmgr update --self --all"
 alias vimup="vim +PlugUpdate +qall"

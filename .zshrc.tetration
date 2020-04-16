@@ -21,7 +21,7 @@ alias cdtet="cd $WORKDIR/go/src/github.com/TetrationAnalytics/tetration/"
 alias cdsensor="cd $WORKDIR/go/src/github.com/TetrationAnalytics/tetration/sensor-go/appliance"
 alias cdams="cd $WORKDIR/java/tetration/java/adhoc/scheduler"
 alias cdamsgo="cd $WORKDIR/java/tetration/golang/src/tetration/ams"
-alias cde2e="cd $WORKDIR/regression/tetration/test_framework/src/e2e"
+alias cde2e="cd $WORKDIR/regression/tetration/test_framework/src/connectors_regression"
 
 alias gcp="git cherry-pick -x"
 
