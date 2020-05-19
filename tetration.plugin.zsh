@@ -23,7 +23,7 @@ alias cdams="cd $WORKDIR/java/tetration/java/adhoc/scheduler"
 alias cdamsgo="cd $WORKDIR/java/tetration/golang/src/tetration/ams"
 alias cde2e="cd $WORKDIR/regression/tetration/test_framework/src/connectors_regression"
 
-alias gcp="git cherry-pick -x"
+alias gcp="git cherry-pick -x -s"
 
 erpm-full(){
     rpm2cpio $1 | cpio -idmv
