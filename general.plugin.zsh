@@ -1,8 +1,7 @@
 alias l='ls -lah'
-alias l.='ls -d .* --color=auto'
 alias la='ls -lAh'
 alias ll='ls -lh'
-alias ls='ls --color=tty'
+alias ls='ls -G'
 alias lsa='ls -lah'
 alias brewup="brew update;brew upgrade;brew cleanup;brew doctor;brew cu -ayv"
 alias opamup="opam update;opam upgrade"
