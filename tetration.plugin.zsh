@@ -17,11 +17,11 @@ makescp-full() {
 alias makescp=makescp-full
 
 export WORKDIR=$HOME/workdir
-alias cdtet="cd $WORKDIR/go/src/github.com/TetrationAnalytics/tetration/"
-alias cdsensor="cd $WORKDIR/go/src/github.com/TetrationAnalytics/tetration/sensor-go/appliance"
-alias cdams="cd $WORKDIR/java/tetration/java/adhoc/scheduler"
-alias cdamsgo="cd $WORKDIR/java/tetration/golang/src/tetration/ams"
-alias cde2e="cd $WORKDIR/regression/tetration/test_framework/src/connectors_regression"
+alias cdtet="pushd $WORKDIR/go/src/github.com/TetrationAnalytics/tetration/"
+alias cdsensor="pushd $WORKDIR/go/src/github.com/TetrationAnalytics/tetration/sensor-go/appliance"
+alias cdams="pushd $WORKDIR/java/tetration/java/adhoc/scheduler"
+alias cdamsgo="pushd $WORKDIR/java/tetration/golang/src/tetration/ams"
+alias cde2e="pushd $WORKDIR/regression/tetration/test_framework/src/connectors_regression"
 
 alias gcp="git cherry-pick -x -s"
 
