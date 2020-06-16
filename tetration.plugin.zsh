@@ -24,6 +24,8 @@ alias cdamsgo="pushd $WORKDIR/java/tetration/golang/src/tetration/ams"
 alias cde2e="pushd $WORKDIR/regression/tetration/test_framework/src/connectors_regression"
 
 alias gcp="git cherry-pick -x -s"
+alias gmm="git merge main_dev"
+alias gcom="git checkout main_dev"
 
 erpm-full(){
     rpm2cpio $1 | cpio -idmv
