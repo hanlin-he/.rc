@@ -12,4 +12,10 @@ jdk() {
         version=$1
         export JAVA_HOME=$(/usr/libexec/java_home -v"$version");
         java -version
- }
+}
+
+rmk() {
+    line=$1
+    known_hosts=${HOME}/.ssh/known_hosts
+    sed -i.bak -e "${line}d" ${known_hosts}
+}
