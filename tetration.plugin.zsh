@@ -1,21 +1,6 @@
 export GOPATH=$HOME/workdir/go
 export PATH="$GOPATH/bin:$PATH"
 
-changelaunchpadlayout() {
-    defaults write com.apple.dock springboard-columns -int $1;defaults write com.apple.dock springboard-rows -int $2;defaults write com.apple.dock ResetLaunchPad -bool TRUE;killall Dock
-}
-alias cll=changelaunchpadlayout
-
-scpvm-full() {
-    scp -r $1 hanlhe@b4cog92191.ocean.af:/tmp
-}
-alias scpvm=scpvm-full
-
-makescp-full() {
-    make $2 VERSION=$1 && scp build/tet-sensor-$1-$3-linux-amd64.rpm hanlhe@b4cog92191.ocean.af:/tmp
-}
-alias makescp=makescp-full
-
 export WORKDIR=$HOME/workdir
 alias cdtet="pushd $WORKDIR/go/src/github.com/TetrationAnalytics/tetration/"
 alias cdsensor="pushd $WORKDIR/go/src/github.com/TetrationAnalytics/tetration/sensor-go/appliance"
