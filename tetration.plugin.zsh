@@ -2,7 +2,7 @@ export GOPATH=$HOME/workdir/go
 export PATH="$GOPATH/bin:$PATH"
 
 export WORKDIR=$HOME/workdir
-alias cdtet="pushd $WORKDIR/go/src/github.com/TetrationAnalytics/tetration/"
+alias cdtet="pushd $WORKDIR/repo/tetration/"
 alias cdsensor="pushd $WORKDIR/go/src/github.com/TetrationAnalytics/tetration/sensor-go/appliance"
 alias cdams="pushd $WORKDIR/java/tetration/java/adhoc/scheduler"
 alias cdamsgo="pushd $WORKDIR/java/tetration/golang/src/tetration/ams"
