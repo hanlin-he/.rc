@@ -1,6 +1,8 @@
 export GOPATH=$HOME/workdir/go
 export PATH="$GOPATH/bin:$PATH"
 
+alias b13vm="ssh hanlhe@172.31.177.76"
+
 export WORKDIR=$HOME/workdir
 alias cdtet="pushd $WORKDIR/repo/tetration/"
 alias cdsensor="pushd $WORKDIR/go/src/github.com/TetrationAnalytics/tetration/sensor-go/appliance"
