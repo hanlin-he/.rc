@@ -113,10 +113,11 @@ set noshowmode
 
 " Vimtex setting
 let g:vimtex_view_method='skim'
+let g:tex_flavor = 'latex'
 
 " vim-markdown-preview setting, using grip to generate html.
 let vim_markdown_preview_hotkey='<C-P>'
-let vim_markdown_preview_github=0
+let vim_markdown_preview_github=1
 let vim_markdown_preview_toggle=2
 let vim_markdown_preview_browser='Google Chrome'
 

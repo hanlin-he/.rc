@@ -2,6 +2,7 @@ export GOPATH=$HOME/workdir/go
 export PATH="$GOPATH/bin:$PATH"
 
 alias b13vm="ssh hanlhe@172.31.177.76"
+alias b4vm="ssh hanlhe@172.29.142.40"
 
 export WORKDIR=$HOME/workdir
 alias cdtet="pushd $WORKDIR/repo/tetration/"
