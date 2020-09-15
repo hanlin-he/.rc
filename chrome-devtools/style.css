@@ -1,0 +1,32 @@
+:host-context(.platform-mac) .monospace,
+:host-context(.platform-mac) .source-code,
+.platform-mac .monospace,
+.platform-mac .source-code {
+    font-size: 12px !important;
+    font-family: Iosevka, Menlo, monospace;
+}
+
+.platform-mac {
+    font-size: 12px !important;
+    font-family: 'Lato', sans-serif !important;
+}
+
+:host-context(.platform-windows) .monospace,
+:host-context(.platform-windows) .source-code,
+.platform-windows .monospace,
+.platform-windows .source-code {
+    font-size: 12px !important;
+    font-family: Iosevka, Consolas, Lucida Console, Courier New, monospace;
+}
+
+.monospace,
+.source-code {
+    font-size: 12px !important;
+    font-family: Iosevka, Consolas, monospace !important;
+}
+
+::shadow .monospace,
+::shadow .source-code {
+    font-size: 12px !important;
+    font-family: Iosevka, Consolas, monospace !important;
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Hanlin's Chrome Devtools Theme",
+    "version": "1.0.0",
+    "description": "A customized theme for Chrome Devtools by Hanlin.",
+    "devtools_page": "devtools.html",
+    "manifest_version": 2
+}
