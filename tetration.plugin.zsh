@@ -10,7 +10,7 @@ alias cdtet="pushd $WORKDIR/repo/tetration/"
 alias cdsensor="pushd $WORKDIR/go/src/github.com/TetrationAnalytics/tetration/sensor-go/appliance"
 alias cdams="pushd $WORKDIR/java/tetration/java/adhoc/scheduler"
 alias cdamsgo="pushd $WORKDIR/java/tetration/golang/src/tetration/ams"
-alias cde2e="pushd $WORKDIR/regression/tetration/test_framework/src/connectors_regression"
+alias cde2e="pushd $WORKDIR/regression/tetration/test_framework/src/"
 
 alias gcp="git cherry-pick -x -s"
 alias gmm="git merge main_dev"
